@@ -7,13 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:sendbird_chat_app/main.dart';
+import 'package:sendbird_chat_app/app/sendbird_chat_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const SendbirdChatApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

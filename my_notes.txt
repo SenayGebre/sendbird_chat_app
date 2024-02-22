@@ -1,0 +1,9 @@
+* rename var keys
+* write test codes
+* setup push notification
+* rename app_colors fields
+* remove all "Colors" and replace with AppColors consts
+* setup cache
+* configure all themes icon, app bar, text, 
+* setup font and font family
+* make default timezone kst
