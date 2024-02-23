@@ -7,7 +7,18 @@ import 'package:sendbird_chat_app/core/presentation/screens/something_went_wrong
 import 'package:sendbird_chat_app/features/chat/application/routes/chat_screen_location.dart';
 
 class AppRouter {
-  // AppRouter._();
+
+  // Singleton instance, helps to avoid multiple instances of the class
+  static AppRouter? _instance;
+  factory AppRouter() {
+    _instance ??= AppRouter._();
+    return _instance!;
+  }
+
+  // Private constructor, helps to make the class singleton and avoid multiple instances
+  AppRouter._();
+
+
   GoRouter get router => _goRouter;
 
   final GlobalKey<NavigatorState> _rootNavigatorKey =

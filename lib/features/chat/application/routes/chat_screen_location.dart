@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sendbird_chat_app/core/application/router/app_page.dart';
-import 'package:sendbird_chat_app/features/chat/presentation/screens/chat_screen.dart';
+import 'package:sendbird_chat_app/features/chat/presentation/screens/index.dart';
 
 class ChatScreenLocation {
   static GoRoute get route => GoRoute(

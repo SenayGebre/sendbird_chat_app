@@ -33,13 +33,7 @@ void main() async {
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
       ]);
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarColor: Colors.deepPurple,
-          // systemNavigationBarColor: PresetColors.whiteColor, // navigation bar color
-          // statusBarColor: PresetColors.primaryColorBlue, // status bar color
-        ),
-      );
+
       runApp(const SendbirdChatApp());
     },
     (error, stackTrace) async {
