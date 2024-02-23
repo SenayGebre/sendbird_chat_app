@@ -15,6 +15,8 @@ void main() async {
       WidgetsFlutterBinding.ensureInitialized();
       FlutterError.onError = (errorDetails) {
         debugPrint('[FlutterError] ${errorDetails.stack}');
+
+        //TODO: Remove this condition in production
         if (kDebugMode) {
           Fluttertoast.showToast(
             msg: '[FlutterError] ${errorDetails.stack}',
@@ -41,6 +43,8 @@ void main() async {
     },
     (error, stackTrace) async {
       debugPrint('[Error] $error\n$stackTrace');
+
+      //TODO: Remove this condition in production
       if (kDebugMode) {
         Fluttertoast.showToast(
           msg: '[Error] $error',
