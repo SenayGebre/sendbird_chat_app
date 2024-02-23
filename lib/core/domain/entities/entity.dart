@@ -1,0 +1,1 @@
+// This will be an abstract class that all feature entities will extend.

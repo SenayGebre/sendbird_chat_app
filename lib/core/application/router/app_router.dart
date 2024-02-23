@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sendbird_chat_app/core/application/router/app_page.dart';
 import 'package:sendbird_chat_app/core/presentation/screens/error_screen.dart';
 import 'package:sendbird_chat_app/core/presentation/screens/something_went_wrong_screen.dart';
-import 'package:sendbird_chat_app/core/router/app_page.dart';
 import 'package:sendbird_chat_app/features/chat/application/routes/chat_screen_location.dart';
 
 class AppRouter {

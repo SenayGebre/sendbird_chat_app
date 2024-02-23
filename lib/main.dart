@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sendbird_chat_app/app/sendbird_chat_app.dart';
-import 'package:sendbird_chat_app/core/configs/app_configs.dart';
+import 'package:sendbird_chat_app/core/application/configs/app_configs.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 void main() async {

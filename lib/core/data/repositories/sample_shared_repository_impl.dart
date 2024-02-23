@@ -1,0 +1,1 @@
+//  lass SampleSharedRepositoryImpl extend SampleSharedRepository {}
