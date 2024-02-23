@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_app/core/application/theme/colors/app_colors.dart';
+import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc.dart';
 
-class ChatComposser extends StatefulWidget {
-  const ChatComposser({
+class MessageComposser extends StatefulWidget {
+  const MessageComposser({
     super.key,
     required this.focusNode,
     required this.onSend,
@@ -11,10 +13,10 @@ class ChatComposser extends StatefulWidget {
   final ValueChanged<String> onSend;
 
   @override
-  State<ChatComposser> createState() => _ChatComposserState();
+  State<MessageComposser> createState() => _MessageComposserState();
 }
 
-class _ChatComposserState extends State<ChatComposser> {
+class _MessageComposserState extends State<MessageComposser> {
   bool _hasContent = false;
   late TextEditingController _messageController;
 
@@ -34,6 +36,7 @@ class _ChatComposserState extends State<ChatComposser> {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = context.watch<ChatBloc>();
     return Material(
       color: AppColors.othersBlack,
       elevation: 9,
@@ -57,7 +60,7 @@ class _ChatComposserState extends State<ChatComposser> {
                 focusNode: widget.focusNode,
                 style: const TextStyle(color: AppColors.othersWhite),
                 decoration: InputDecoration(
-                  suffixIcon: _hasContent
+                  suffixIcon: _hasContent && bloc.state.user?.userId != null
                       ? Padding(
                           padding: const EdgeInsets.only(
                               top: 7.0, bottom: 7.0, right: 8.0),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sendbird_chat_app/core/application/router/app_router.dart';
 import 'package:sendbird_chat_app/core/presentation/screens/something_went_wrong_screen.dart';
 import 'package:sendbird_chat_app/core/application/theme/theme.dart';
+import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc.dart';
 
 class SendbirdChatApp extends StatelessWidget {
   const SendbirdChatApp({
@@ -25,6 +27,11 @@ class SendbirdChatApp extends StatelessWidget {
           lazy: true,
           create: (_) => AppRouter(),
         ),
+
+        // TODO: this will be moved to chat_screen_location file in the future.
+        BlocProvider(
+          create: (context) => ChatBloc(),
+        )
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),

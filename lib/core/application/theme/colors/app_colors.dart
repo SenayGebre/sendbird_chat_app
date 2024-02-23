@@ -9,6 +9,10 @@ class AppColors {
   static const Color othersWhite = Color(0xFFFFFFFF);
   static const Color othersBlack = Color(0xFF000000);
 
+  // alert colors
+  static const Color failedAlert = Color.fromRGBO(232, 77, 77, 1);
+  static const Color failAlert2 = Color.fromRGBO(242, 0, 0, 1);
+
   // grey
   static const Color grey100 = Color(0xFFDADBDD);
   static const Color grey200 = Color(0xFFB1B4B8);
