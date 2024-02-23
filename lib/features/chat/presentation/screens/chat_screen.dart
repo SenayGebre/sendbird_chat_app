@@ -39,7 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
       bottomNavigationBar: MessageComposser(
         focusNode: _focusNode,
         onSend: (message) {
-          // context.read<MessageBloc>().add(SendMessage(message));
+          context.read<MessageBloc>().add(SendMessage(message));
         },
       ),
       body: BlocConsumer<ChatBloc, ChatState>(

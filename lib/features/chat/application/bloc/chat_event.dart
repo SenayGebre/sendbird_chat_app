@@ -20,10 +20,10 @@ class OpenChatChannel extends ChatEvent {
   List<Object> get props => [showLoading];
 }
 
-class SendMessage extends ChatEvent {
-  final String message;
-  SendMessage(this.message);
+// class SendMessage extends ChatEvent {
+//   final String message;
+//   SendMessage(this.message);
 
-  @override
-  List<Object> get props => [message];
-}
+//   @override
+//   List<Object> get props => [message];
+// }

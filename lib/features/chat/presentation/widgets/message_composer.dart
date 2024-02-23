@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_app/core/application/theme/colors/app_colors.dart';
 import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc.dart';
+import 'package:sendbird_chat_app/features/chat/application/bloc/message_bloc/message_bloc.dart';
 
 class MessageComposser extends StatefulWidget {
   const MessageComposser({
@@ -49,7 +50,7 @@ class _MessageComposserState extends State<MessageComposser> {
           children: [
             IconButton(
               onPressed: () {
-                //TODO handle file uploader
+               
               },
               icon: const Icon(Icons.add, color: AppColors.grey300),
             ),

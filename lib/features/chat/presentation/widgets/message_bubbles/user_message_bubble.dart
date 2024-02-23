@@ -19,32 +19,34 @@ class UserMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var chatBloc = context.watch<ChatBloc>();
-    bool isMine = chatBloc.state.user?.userId == message.sender?.userId;
+    final isMine = context.select(
+        (ChatBloc bloc) => bloc.state.user?.userId == message.sender?.userId);
     return InkWell(
       onTap: onTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: EdgeInsets.only(top: 10.0),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: AppColors.othersWhite.withOpacity(0.6),
+                  width: 0.6,
+                  color: AppColors.othersWhite.withOpacity(0.5),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(0.7),
-                child: message.sender?.profileUrl == null
+                padding: const EdgeInsets.all(0.4),
+                child: (message.sender?.profileUrl != null &&
+                        message.sender?.profileUrl != '')
                     ? CircleAvatar(
-                        radius: 18, // Set the radius as needed
+                        radius: 20, // Set the radius as needed
                         backgroundImage:
                             NetworkImage(message.sender!.profileUrl),
                       )
-                    : const CircleAvatar(
-                        radius: 18,
+                    : CircleAvatar(
+                        radius: 20,
                         child: Icon(Icons
                             .person_2_outlined), // Set the radius as needed
                       ),

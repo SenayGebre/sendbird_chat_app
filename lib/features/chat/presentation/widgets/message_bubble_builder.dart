@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_bubble_types/text_message_bubble.dart';
-import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_bubble_types/user_message_bubble.dart';
+import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_bubbles/user_message_bubble.dart';
+import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_bubbles/text_message_bubble.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 enum MessageTypes { textMessage, userMessage }

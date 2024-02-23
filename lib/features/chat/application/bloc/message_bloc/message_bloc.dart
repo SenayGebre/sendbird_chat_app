@@ -14,11 +14,11 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   Future<void> _onSendMessage(
       SendMessage event, Emitter<MessageState> emit) async {
     try {
-      // _openChannel!
-      //     .sendUserMessage(UserMessageCreateParams(message: event.message));
-      // emit(ChatMessageSentState());
+      _openChannel!
+          .sendUserMessage(UserMessageCreateParams(message: event.message));
+      emit(ChatMessageSentState());
     } catch (e) {
-      // emit(ErrorOccurredState(e.toString()));
+      emit(ErrorOccurredState(e.toString()));
     }
   }
 }
