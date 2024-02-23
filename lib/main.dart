@@ -26,6 +26,7 @@ void main() async {
         }
       };
 
+      // Initialize third party packages( i.e: Sendbird Chat SDK )
       await _initDependencies();
 
       SystemChrome.setPreferredOrientations([
@@ -58,5 +59,12 @@ void main() async {
 
 Future<void> _initDependencies() async {
   await dotenv.load();
-  await SendbirdChat.init(appId: AppConfigs.APP_ID);
+  await SendbirdChat.init(
+    appId: AppConfigs.APP_ID,
+    options: SendbirdChatOptions(
+      useCollectionCaching: true,
+      // TODO: setup typing indicator
+      // typingIndicatorThrottle: 1000,
+    ),
+  );
 }
