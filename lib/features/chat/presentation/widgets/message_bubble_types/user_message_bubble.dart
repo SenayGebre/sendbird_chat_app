@@ -26,23 +26,31 @@ class UserMessageBubble extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (message.sender?.profileUrl == null)
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: CircleAvatar(
-                radius: 20, // Set the radius as needed
-                backgroundImage: NetworkImage(message.sender!.profileUrl),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppColors.othersWhite.withOpacity(0.6),
+                ),
               ),
-            )
-          else
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: CircleAvatar(
-                radius: 20,
-                child:
-                    Icon(Icons.person_2_outlined), // Set the radius as needed
+              child: Padding(
+                padding: const EdgeInsets.all(0.7),
+                child: message.sender?.profileUrl == null
+                    ? CircleAvatar(
+                        radius: 18, // Set the radius as needed
+                        backgroundImage:
+                            NetworkImage(message.sender!.profileUrl),
+                      )
+                    : const CircleAvatar(
+                        radius: 18,
+                        child: Icon(Icons
+                            .person_2_outlined), // Set the radius as needed
+                      ),
               ),
             ),
+          ),
           Row(
             children: [
               Container(

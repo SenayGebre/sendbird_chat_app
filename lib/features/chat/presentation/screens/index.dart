@@ -9,7 +9,7 @@ import 'package:sendbird_chat_app/features/chat/presentation/widgets/error_widge
 import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_bubble.dart';
 import 'package:sendbird_chat_app/features/chat/presentation/widgets/error_widget.dart';
 import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_composer.dart';
-import 'package:sendbird_chat_app/features/chat/presentation/widgets/loading_chat_list_tile.dart';
+import 'package:sendbird_chat_app/features/chat/presentation/widgets/loading_chat_list.dart';
 
 part 'chat_screen.dart';
 part '../widgets/chat_app_bar.dart';

@@ -8,16 +8,15 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  late final ScrollController _scrollController;
   late FocusNode _focusNode;
-  late ChatBloc _chatBloc;
-  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
     _focusNode = FocusNode();
-    _chatBloc = context.read<ChatBloc>();
-    _chatBloc.add(InitializeChatChannel());
+    context.read<ChatBloc>().add(InitializeChatChannel());
   }
 
   _scrollToBottom() {
@@ -33,11 +32,19 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MessageBloc(),
-      child: BlocConsumer<ChatBloc, ChatState>(
-        bloc: _chatBloc,
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: _AppBar(context,
+          chatTitle: context.watch<ChatBloc>().state.user?.nickname ?? "..."),
+      bottomNavigationBar: MessageComposser(
+        focusNode: _focusNode,
+        onSend: (message) {
+          // context.read<MessageBloc>().add(SendMessage(message));
+        },
+      ),
+      body: BlocConsumer<ChatBloc, ChatState>(
         listener: (context, chatState) {
+          // Handle chat state changes (e.g., scrolling, loading)
           if (chatState.status == ChannelStatus.connected) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _focusNode.unfocus();
@@ -45,74 +52,47 @@ class _ChatScreenState extends State<ChatScreen> {
             });
           }
           if (chatState.status == ChannelStatus.initialized) {
-            _chatBloc.add(OpenChatChannel(showLoading: true));
+            context.read<ChatBloc>().add(OpenChatChannel(showLoading: true));
           }
         },
         builder: (context, chatState) {
-          return Scaffold(
-            resizeToAvoidBottomInset: true,
-            appBar:
-                _AppBar(context, chatTitle: chatState.user?.nickname ?? "..."),
-            bottomNavigationBar: MessageComposser(
-              focusNode: _focusNode,
-              onSend: (message) {},
-            ),
-            body: RefreshIndicator(
-              onRefresh: () {
-                return Future.delayed(const Duration(seconds: 3),
-                    () => _chatBloc.add(InitializeChatChannel()));
-              },
-              child: BlocListener<MessageBloc, MessageState>(
-                listener: (context, messageState) {
-                  if (messageState.status == MessageStatus.sent) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      _focusNode.unfocus();
-                      _scrollToBottom();
-                    });
-                    _chatBloc.add(OpenChatChannel(showLoading: false));
-                  }
-                  // TODO: implement listener
-                },
-                child: () {
-                  if (chatState.status == ChannelStatus.initialized ||
-                      chatState.status == ChannelStatus.connecting) {
-                    return ListView.builder(
-                      itemCount: 6,
-                      itemBuilder: (context, index) =>
-                          const LoadingChatListTile(),
-                    );
-                  } else if (chatState.status == ChannelStatus.connected) {
-                    return _itemBuilder(context, chatState);
-                  } else if (chatState.status == ChannelStatus.error) {
-                    return CustomErrorWidget(
-                      error: chatState.error ?? "Error",
-                      onRetry: () => {
-                        _chatBloc.add(InitializeChatChannel()),
-                      },
-                    );
-                  }
-                  return const SizedBox.shrink();
-                }(),
-              ),
-            ),
-          );
+          return _buildChatContent(chatState);
         },
       ),
     );
   }
 
-  Widget _itemBuilder(BuildContext context, ChatState state) {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: state.messages.length,
-      itemBuilder: (context, index) {
-        final message = state.messages[index];
-        return MessageBubble(
-          key: ValueKey(message.messageId),
-          message: message,
-          isMine: state.user?.userId == message.sender?.userId,
-        );
+  Widget _buildChatContent(ChatState chatState) {
+    if (chatState.status == ChannelStatus.connected) {
+      return _itemBuilder(chatState);
+    } else if (chatState.status == ChannelStatus.error) {
+      return CustomErrorWidget(
+        error: chatState.error ?? "Error",
+        onRetry: () => context.read<ChatBloc>().add(InitializeChatChannel()),
+      );
+    } else {
+      return const LoadingChatList();
+    }
+  }
+
+  Widget _itemBuilder(ChatState state) {
+    return RefreshIndicator(
+      onRefresh: () {
+        return Future.delayed(const Duration(seconds: 3),
+            () => context.read<ChatBloc>().add(InitializeChatChannel()));
       },
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: state.messages.length,
+        itemBuilder: (context, index) {
+          final message = state.messages[index];
+          return MessageBubble(
+            key: ValueKey(message.messageId),
+            message: message,
+            isMine: state.user?.userId == message.sender?.userId,
+          );
+        },
+      ),
     );
   }
 }
