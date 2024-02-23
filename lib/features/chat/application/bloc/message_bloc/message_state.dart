@@ -6,8 +6,11 @@ class MessageState extends Equatable {
   final String message;
   final MessageStatus status;
   final String? error;
+  final OpenChannel? openChannel;
+
   const MessageState({
     required this.message,
+    required this.openChannel,
     required this.status,
     this.error,
   });
@@ -15,8 +18,23 @@ class MessageState extends Equatable {
   const MessageState.initial()
       : message = '',
         status = MessageStatus.initial,
+        openChannel = null,
         error = null;
 
+  MessageState copyWith({
+    String? message,
+    MessageStatus? status,
+    OpenChannel? openChannel,
+    String? error,
+  }) {
+    return MessageState(
+      openChannel: openChannel ?? this.openChannel,
+      message: message ?? this.message,
+      status: status ?? this.status,
+      error: error ?? this.error,
+    );
+  }
+
   @override
-  List<Object?> get props => [message, error, status];
+  List<Object?> get props => [message, error, status, openChannel];
 }

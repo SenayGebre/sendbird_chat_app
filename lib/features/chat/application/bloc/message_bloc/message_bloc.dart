@@ -8,17 +8,27 @@ part 'message_state.dart';
 
 class MessageBloc extends Bloc<MessageEvent, MessageState> {
   MessageBloc() : super(const MessageState.initial()) {
+    on<SetChannel>(_onSetChannel);
     on<SendMessage>(_onSendMessage);
   }
 
   Future<void> _onSendMessage(
       SendMessage event, Emitter<MessageState> emit) async {
     try {
-      _openChannel!
+      emit(state.copyWith(status: MessageStatus.sent));
+
+      if (state.openChannel == null) {
+        throw Exception("OpenChannel instance is null");
+      }
+      state.openChannel!
           .sendUserMessage(UserMessageCreateParams(message: event.message));
-      emit(ChatMessageSentState());
+      emit(state.copyWith(status: MessageStatus.sent));
     } catch (e) {
-      emit(ErrorOccurredState(e.toString()));
+      emit(state.copyWith(status: MessageStatus.error, error: e.toString()));
     }
+  }
+
+  FutureOr<void> _onSetChannel(SetChannel event, Emitter<MessageState> emit) {
+    emit(state.copyWith(openChannel: event.openChannel));
   }
 }

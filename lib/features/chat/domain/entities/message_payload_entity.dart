@@ -26,6 +26,7 @@ class MessagePayloadEntity extends Entity {
   });
 
   // copywith method
+  @override
   MessagePayloadEntity copyWith({
     User? user,
     OpenChannel? openChannel,

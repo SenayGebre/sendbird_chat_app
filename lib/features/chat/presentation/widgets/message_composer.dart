@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_app/core/application/theme/colors/app_colors.dart';
-import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc.dart';
-import 'package:sendbird_chat_app/features/chat/application/bloc/message_bloc/message_bloc.dart';
+import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc/chat_bloc.dart';
 
 class MessageComposser extends StatefulWidget {
   const MessageComposser({
@@ -37,21 +36,18 @@ class _MessageComposserState extends State<MessageComposser> {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.watch<ChatBloc>();
     return Material(
       color: AppColors.othersBlack,
       elevation: 9,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Row(
           children: [
             IconButton(
-              onPressed: () {
-               
-              },
+              onPressed: () {},
               icon: const Icon(Icons.add, color: AppColors.grey300),
             ),
             Expanded(
@@ -61,12 +57,15 @@ class _MessageComposserState extends State<MessageComposser> {
                 focusNode: widget.focusNode,
                 style: const TextStyle(color: AppColors.othersWhite),
                 decoration: InputDecoration(
-                  suffixIcon: _hasContent && bloc.state.user?.userId != null
+                  suffixIcon: _hasContent
                       ? Padding(
                           padding: const EdgeInsets.only(
                               top: 7.0, bottom: 7.0, right: 8.0),
                           child: InkWell(
-                            onTap: () => widget.onSend(_messageController.text),
+                            onTap: () {
+                              widget.onSend(_messageController.text);
+                              _messageController.clear();
+                            },
                             child: const DecoratedBox(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,

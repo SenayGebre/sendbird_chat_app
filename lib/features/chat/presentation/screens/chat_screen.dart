@@ -32,38 +32,37 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: _AppBar(context,
-          chatTitle: context.watch<ChatBloc>().state.user?.nickname ?? "..."),
-      bottomNavigationBar: MessageComposser(
-        focusNode: _focusNode,
-        onSend: (message) {
-          context.read<MessageBloc>().add(SendMessage(message));
-        },
-      ),
-      body: BlocConsumer<ChatBloc, ChatState>(
-        listener: (context, chatState) {
-          // Handle chat state changes (e.g., scrolling, loading)
-          if (chatState.status == ChannelStatus.connected) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _focusNode.unfocus();
-              _scrollToBottom();
-            });
-          }
-          if (chatState.status == ChannelStatus.initialized) {
-            context.read<ChatBloc>().add(OpenChatChannel(showLoading: true));
-          }
-        },
-        builder: (context, chatState) {
-          return _buildChatContent(chatState);
-        },
-      ),
+    return BlocProvider(
+      create: (_) => MessageBloc(),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: _AppBar(context,
+              chatTitle:
+                  context.watch<ChatBloc>().state.user?.nickname ?? "..."),
+          bottomNavigationBar: BlocListener<MessageBloc, MessageState>(
+            listener: _messageBlocListener,
+            child: MessageComposser(
+              focusNode: _focusNode,
+              onSend: (message) {
+                context.read<MessageBloc>().add(SendMessage(message));
+              },
+            ),
+          ),
+          body: BlocConsumer<ChatBloc, ChatState>(
+            listener: _chatBlocListener,
+            builder: (context, chatState) {
+              return _buildChatContent(context, chatState);
+            },
+          ),
+        );
+      }),
     );
   }
 
-  Widget _buildChatContent(ChatState chatState) {
+  Widget _buildChatContent(BuildContext context, ChatState chatState) {
     if (chatState.status == ChannelStatus.connected) {
+      context.read<MessageBloc>().add(SetChannel(chatState.channel!));
       return _itemBuilder(chatState);
     } else if (chatState.status == ChannelStatus.error) {
       return CustomErrorWidget(
@@ -94,5 +93,27 @@ class _ChatScreenState extends State<ChatScreen> {
         },
       ),
     );
+  }
+
+  void _messageBlocListener(BuildContext context, MessageState state) {
+    if (state.status == MessageStatus.sent) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _focusNode.unfocus();
+        _scrollToBottom();
+      });
+      context.read<ChatBloc>().add(OpenChatChannel(showLoading: false));
+    }
+  }
+
+  void _chatBlocListener(BuildContext context, ChatState state) {
+    if (state.status == ChannelStatus.connected) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _focusNode.unfocus();
+        _scrollToBottom();
+      });
+    }
+    if (state.status == ChannelStatus.initialized) {
+      context.read<ChatBloc>().add(OpenChatChannel(showLoading: true));
+    }
   }
 }

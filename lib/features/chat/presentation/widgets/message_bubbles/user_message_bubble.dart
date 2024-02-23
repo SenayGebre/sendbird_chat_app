@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sendbird_chat_app/core/application/theme/colors/app_colors.dart';
-import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc.dart';
+import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc/chat_bloc.dart';
 import 'package:sendbird_chat_app/features/chat/presentation/widgets/message_time_and_status_widget.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
@@ -27,7 +27,7 @@ class UserMessageBubble extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -45,7 +45,7 @@ class UserMessageBubble extends StatelessWidget {
                         backgroundImage:
                             NetworkImage(message.sender!.profileUrl),
                       )
-                    : CircleAvatar(
+                    : const CircleAvatar(
                         radius: 20,
                         child: Icon(Icons
                             .person_2_outlined), // Set the radius as needed

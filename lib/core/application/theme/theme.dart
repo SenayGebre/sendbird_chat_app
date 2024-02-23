@@ -21,7 +21,7 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primary900,
       brightness: Brightness.dark,
-      background: Color.fromARGB(255, 15, 0, 6),
+      background: const Color.fromARGB(255, 15, 0, 6),
     ).copyWith(),
   ).copyWith(
       textTheme: AppTextTheme.textTheme,
@@ -47,5 +47,5 @@ class AppTheme {
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.othersBlack,
       ),
-      appBarTheme: AppBarTheme(color: AppColors.othersBlack));
+      appBarTheme: const AppBarTheme(color: AppColors.othersBlack));
 }

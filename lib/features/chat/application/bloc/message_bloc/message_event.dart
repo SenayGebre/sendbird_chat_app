@@ -9,3 +9,11 @@ class SendMessage extends MessageEvent {
   @override
   List<Object> get props => [message];
 }
+
+class SetChannel extends MessageEvent {
+  final OpenChannel openChannel;
+  SetChannel(this.openChannel);
+
+  @override
+  List<Object> get props => [openChannel];
+}

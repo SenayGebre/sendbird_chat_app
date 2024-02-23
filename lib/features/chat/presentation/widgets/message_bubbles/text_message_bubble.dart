@@ -17,7 +17,7 @@ class TextMessageBubble extends StatelessWidget {
             topLeft: Radius.circular(16),
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16)),
-        color: AppColors.grey300,
+        color: AppColors.primary800,
       ),
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),

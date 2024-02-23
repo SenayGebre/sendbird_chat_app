@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sendbird_chat_app/core/application/router/app_router.dart';
 import 'package:sendbird_chat_app/core/presentation/screens/something_went_wrong_screen.dart';
 import 'package:sendbird_chat_app/core/application/theme/theme.dart';
-import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc.dart';
+import 'package:sendbird_chat_app/features/chat/application/bloc/chat_bloc/chat_bloc.dart';
 
 class SendbirdChatApp extends StatelessWidget {
   const SendbirdChatApp({
