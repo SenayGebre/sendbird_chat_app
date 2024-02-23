@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sendbird_chat_app/app/sendbird_chat_app.dart';
 import 'package:sendbird_chat_app/core/configs/app_configs.dart';
-import 'package:sendbird_chat_app/core/theme/app_colors.dart';
 import 'package:sendbird_chat_sdk/sendbird_chat_sdk.dart';
 
 void main() async {
@@ -15,11 +15,13 @@ void main() async {
       WidgetsFlutterBinding.ensureInitialized();
       FlutterError.onError = (errorDetails) {
         debugPrint('[FlutterError] ${errorDetails.stack}');
-        Fluttertoast.showToast(
-          msg: '[FlutterError] ${errorDetails.stack}',
-          gravity: ToastGravity.CENTER,
-          toastLength: Toast.LENGTH_SHORT,
-        );
+        if (kDebugMode) {
+          Fluttertoast.showToast(
+            msg: '[FlutterError] ${errorDetails.stack}',
+            gravity: ToastGravity.CENTER,
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        }
       };
 
       await _initDependencies();
@@ -39,11 +41,13 @@ void main() async {
     },
     (error, stackTrace) async {
       debugPrint('[Error] $error\n$stackTrace');
-      Fluttertoast.showToast(
-        msg: '[Error] $error',
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-      );
+      if (kDebugMode) {
+        Fluttertoast.showToast(
+          msg: '[Error] $error',
+          gravity: ToastGravity.CENTER,
+          toastLength: Toast.LENGTH_SHORT,
+        );
+      }
     },
   );
 }
