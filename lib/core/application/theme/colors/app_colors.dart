@@ -7,6 +7,7 @@ class AppColors {
 
   // suplimentary colors
   static const Color othersWhite = Color(0xFFFFFFFF);
+  static const Color othersBlack = Color(0xFF000000);
 
   // grey
   static const Color grey100 = Color(0xFFDADBDD);

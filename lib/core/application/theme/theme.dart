@@ -12,6 +12,7 @@ class AppTheme {
       seedColor: AppColors.primary900,
       brightness: Brightness.light,
     ).copyWith(),
+  ).copyWith(
     textTheme: AppTextTheme.textTheme,
   );
 
@@ -20,7 +21,31 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primary900,
       brightness: Brightness.dark,
+      background: Color.fromARGB(255, 15, 0, 6),
     ).copyWith(),
-    textTheme: AppTextTheme.textTheme,
-  );
+  ).copyWith(
+      textTheme: AppTextTheme.textTheme,
+      inputDecorationTheme: const InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.othersWhite, width: 0.8),
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.othersWhite, width: 0.8),
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.othersWhite, width: 1.2),
+          borderRadius: BorderRadius.all(
+            Radius.circular(50),
+          ),
+        ),
+        hintStyle: TextStyle(
+          color: Color.fromARGB(255, 100, 100, 100),
+        ),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColors.othersBlack,
+      ),
+      appBarTheme: AppBarTheme(color: AppColors.othersBlack));
 }
