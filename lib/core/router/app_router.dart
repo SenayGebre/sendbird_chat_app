@@ -7,7 +7,7 @@ import 'package:sendbird_chat_app/core/router/app_page.dart';
 import 'package:sendbird_chat_app/features/chat/application/routes/chat_screen_location.dart';
 
 class AppRouter {
-  AppRouter._();
+  // AppRouter._();
   GoRouter get router => _goRouter;
 
   final GlobalKey<NavigatorState> _rootNavigatorKey =
